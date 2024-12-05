@@ -4,6 +4,8 @@ on:
     branches: [ main, master,testRail-omar ]
   pull_request:
     branches: [ main, master ]
+  env:
+    PLAYWRIGHT_JUNIT_SUITE_NAME: playwright
 jobs:
   test:
     timeout-minutes: 60
