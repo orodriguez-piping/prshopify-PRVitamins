@@ -10,6 +10,15 @@ import { defineConfig, devices } from '@playwright/test';
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
+
+const testRailOptions = {
+  // Whether to add <properties> with all annotations; default is false
+  embedAnnotationsAsProperties: true,
+  // Where to put the report.
+  outputFile: './test-results/junit-report.xml'
+};
+
+
 export default defineConfig({
   testDir: './tests',
   /* Run tests in files in parallel */
@@ -21,7 +30,11 @@ export default defineConfig({
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: 'html',
+  reporter: [
+    ['list'],
+    ['html', { outputFolder: 'test-results', open: 'never' }],
+    ['junit', testRailOptions]
+  ],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   timeout: 80000,
   expect: {
