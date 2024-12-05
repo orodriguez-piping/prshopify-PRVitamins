@@ -25,3 +25,20 @@ jobs:
         name: playwright-report
         path: playwright-report/
         retention-days: 30
+    - name: Python setup
+        if: always()
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+    - name: TestRail CLI upload results
+      if: always()
+      run: |
+        pip install trcli
+        trcli -y \
+          -h ${{ vars.RAIL_HOST }} \
+          --project ${{ vars.RAIL_PROJECT }} \
+          -u ${{ secrets.RAIL_USER }} \
+          -p ${{ secrets.RAIL_PASS }} \
+          parse_junit \
+          --title "Automated Tests from GitHub workflow" \
+          -f "reports/TEST*.xml"
