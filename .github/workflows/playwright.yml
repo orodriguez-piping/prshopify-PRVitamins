@@ -41,4 +41,4 @@ jobs:
           -p ${{ secrets.RAIL_PASS }} \
           parse_junit \
           --title "Automated Tests from GitHub workflow" \
-          "./test-results/junit-report.xml"
+          "test-results/junit-report.xml"
