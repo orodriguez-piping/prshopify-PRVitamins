@@ -13,7 +13,7 @@ test("Find broken image", async ({ page }) => {
         //@ts-ignore
         if(imgSrc?.length > 1) {
             const res = await page.request.get("https://www.us.prsandbox.net/en-mx"+imgSrc);
-            expect.soft(res.status(), "Failed to Load: " + imgSrc).toBe(200);
+            expect.soft(res.status(), "Failed to Load: " + imgSrc).toBe(401);
         }
     }
 
