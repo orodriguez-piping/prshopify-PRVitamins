@@ -17,7 +17,7 @@ jobs:
       run: npm ci
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
-    - name: Run Playwright tests
+    - name: Run Playwright tests 
       run: npx playwright test
     - uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
@@ -26,10 +26,10 @@ jobs:
         path: playwright-report/
         retention-days: 30
     - name: Python setup
-        if: always()
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.x'
+      if: always()
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
     - name: TestRail CLI upload results
       if: always()
       run: |
@@ -41,4 +41,4 @@ jobs:
           -p ${{ secrets.RAIL_PASS }} \
           parse_junit \
           --title "Automated Tests from GitHub workflow" \
-          -f "reports/TEST*.xml"
+          "./test-results/junit-report.xml"
